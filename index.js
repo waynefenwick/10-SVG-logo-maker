@@ -1,81 +1,181 @@
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+// Shape class
+class Shape {
+     constructor(shapeColor, border, borderColor) {
+          this.shapeColor = shapeColor;
+          this.border = border;
+          this.borderColor = borderColor;
+     }
+
+     getSvgElement() {
+          throw new Error('Method not implemented');
+     }
+}
+
+// Circle class, inheriting from Shape
+class Circle extends Shape {
+     constructor(radius, shapeColor, border, borderColor) {
+          super(shapeColor, border, borderColor);
+          this.radius = radius;
+     }
+
+     getSvgElement() {
+          return `<circle fill="${this.shapeColor}" cx="125" cy="145" r="${this.radius}" ${this.border ? `stroke="${this.borderColor}" stroke-width="2"` : ''}/>`;
+     }
+
+     render() {
+          return this.getSvgElement();
+     }
+
+     setColor(color) {
+          this.shapeColor = color;
+     }
+}
+
+// Square class, inheriting from Shape
+class Square extends Shape {
+     constructor(width, height, shapeColor, border, borderColor) {
+          super(shapeColor, border, borderColor);
+          this.width = width;
+          this.height = height;
+     }
+
+     getSvgElement() {
+          return `<rect fill="${this.shapeColor}" x="48" y="72" width="${this.width}" height="${this.height}" ${this.border ? `stroke="${this.borderColor}" stroke-width="2"` : ''}/>`;
+     }
+
+     render() {
+          return this.getSvgElement();
+     }
+
+     setColor(color) {
+          this.shapeColor = color;
+     }
+}
+
+// Triangle class, inheriting from Shape
+class Triangle extends Shape {
+     constructor(points, shapeColor, border, borderColor) {
+          super(shapeColor, border, borderColor);
+          this.points = points;
+     }
+
+     getSvgElement() {
+          return `<polygon fill="${this.shapeColor}" points="${this.points}" ${this.border ? `stroke="${this.borderColor}" stroke-width="2"` : ''}/>`;
+     }
+
+     render() {
+          return this.getSvgElement();
+     }
+
+     setColor(color) {
+          this.shapeColor = color;
+     }
+}
+
+// Text Class
+class Text {
+     constructor(text, textColor) {
+          this.text = text;
+          this.textColor = textColor;
+     }
+
+     getSvgElement() {
+          return `<text x="128" y="157" text-anchor="middle" fill="${this.textColor}" font-size="30">${this.text}</text>`;
+     }
+
+     render() {
+          return this.getSvgElement();
+     }
+
+     setColor(color) {
+          this.textColor = color;
+     }
+}
+
 // Define a function to prompt the user for input
 async function createLogo() {
      const answers = await inquirer.prompt([
-          {
-               type: 'input',
-               name: 'text',
-               message: 'Enter text (up to 3 characters)',
-               default: 'SVG',
-               validate: function (input) {
-                    return input.length > 0 && input.length <= 3;
+     {
+          type: 'input',
+          name: 'text',
+          message: 'Enter text (up to 3 characters)',
+          default: 'SVG',
+          validate: function (input) {
+               if (input.length > 3) {
+               return 'You can only enter up to 3 characters. Backspace to 3.';
                }
+               return true;
           },
+     },
 
-          {
-               type: 'list',
-               name: 'textColor',
-               message: 'Text color',
-               choices: ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'black', 'white'],
-          },
+     {
+          type: 'list',
+          name: 'textColor',
+          message: 'Text color?',
+          choices: ['red', 'blue', 'green', 'yellow', 'purple', 'orange', 'black', 'white'],
+     },
 
-          {
-               type: 'list',
-               name: 'shape',
-               message: 'Shape:',
-               choices: ['triangle', 'circle', 'square'],
-          },
+     {
+          type: 'list',
+          name: 'shape',
+          message: 'Shape?:',
+          choices: ['triangle', 'circle', 'square'],
+     },
 
-          {
-               type: 'list',
-               name: 'shapeColor',
-               message: 'Shape color',
-               choices: ['blue', 'red', 'green', 'yellow', 'purple', 'orange', 'black', 'white'],
-          },
+     {
+          type: 'list',
+          name: 'shapeColor',
+          message: 'Shape color?',
+          choices: ['blue', 'red', 'green', 'yellow', 'purple', 'orange', 'black', 'white'],
+     },
 
-          {
-               type: 'confirm',
-               name: 'border',
-               message: 'Border?:',
-               default: false,
-          },
+     {
+          type: 'confirm',
+          name: 'border',
+          message: 'Border?:',
+          default: false,
+     },
 
-          {
-               type: 'list',
-               name: 'borderColor',
-               message: 'Border color',
-               choices: ['blue', 'red', 'green', 'yellow', 'purple', 'orange', 'black', 'white'],
-               when: (answers) => answers.border,
-          },
-     ]);
+     {
+          type: 'list',
+          name: 'borderColor',
+          message: 'Border color',
+          choices: ['blue', 'red', 'green', 'yellow', 'purple', 'orange', 'black', 'white'],
+          when: (answers) => answers.border,
+     },
+]);
 
-     const { text, textColor, shape, shapeColor, border, borderColor } = answers;
-     console.log('Text:', text);
-     console.log('Text Color:', textColor);
-     console.log('Shape:', shape);
-     console.log('Shape Color:', shapeColor);
-     console.log('Border:', border);
-     console.log('Border Color:', borderColor);
+const { text, textColor, shape, shapeColor, border, borderColor } = answers;
+console.log('Text:', text);
+console.log('Text Color:', textColor);
+console.log('Shape:', shape);
+console.log('Shape Color:', shapeColor);
+console.log('Border:', border);
+console.log('Border Color:', borderColor);
 
-     // Create the SVG content
-     let shapeElement;
+  // Create the SVG content
+let shapeElement;
 
      if (shape === 'circle') {
-          shapeElement = `<circle fill="${shapeColor}" cx="125" cy="145" r="73" ${border ? `stroke="${borderColor}" stroke-width="2"` : ''}/>`;
+          const circle = new Circle(70, shapeColor, border, borderColor);
+          shapeElement = circle.getSvgElement();
      } else if (shape === 'triangle') {
-          shapeElement = `<polygon fill="${shapeColor}" points="125, 65, 55, 180, 195, 180" ${border ? `stroke="${borderColor}" stroke-width="2"` : ''}/>`; //Point 1:(t) x & y;  Point 2:(l) x & y; Point(R) 3: x & y 
-
+                                   //    T x-y,   BL x-y    BR x-y
+          const triangle = new Triangle('125, 40, 55, 175, 195, 175', shapeColor, border, borderColor);
+          shapeElement = triangle.getSvgElement();
      } else if (shape === 'square') {
-          shapeElement = `<rect fill="${shapeColor}" x="48" y="72" width="150" height="150" ${border ? `stroke="${borderColor}" stroke-width="2"` : ''}/>`;
+          const square = new Square(150, 150, shapeColor, border, borderColor);
+          shapeElement = square.getSvgElement();
      } else {
-          // Handle invalid shape
-          shapeElement = '';
+    // Handle invalid shape
+     shapeElement = '';
      }
 
      const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="300">${shapeElement}
-                         <text x="128" y="157" text-anchor="middle" fill="${textColor}" font-size="30">${text}</text></svg>`;
+                    <text x="126" y="157" text-anchor="middle" fill="${textColor}" font-size="40">${text}</text></svg>`;
 
      // Write the SVG content to a file named "logo.svg"
      fs.writeFileSync('logo.svg', svgContent);
@@ -84,20 +184,3 @@ async function createLogo() {
 }
 
 createLogo();
-
-
-
-// GIVEN a command - line application that accepts user input
-// WHEN I am prompted for text
-// THEN I can enter up to three characters
-// WHEN I am prompted for the text color
-// THEN I can enter a color keyword(OR a hexadecimal number)
-// WHEN I am prompted for a shape
-// THEN I am presented with a list of shapes to choose from: circle, triangle, and square
-// WHEN I am prompted for the shape's color
-// THEN I can enter a color keyword(OR a hexadecimal number)
-// WHEN I have entered input for all the prompts
-// THEN an SVG file is created named`logo.svg`
-// AND the output text "Generated logo.svg" is printed in the command line
-// WHEN I open the `logo.svg` file in a browser
-// THEN I am shown a 300x200 pixel image that matches the criteria I entered
