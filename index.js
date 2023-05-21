@@ -95,7 +95,7 @@ class Text {
      }
 }
 
-// Define a function to prompt the user for input
+// Function that prompts user for input
 async function createLogo() {
      const answers = await inquirer.prompt([
      {
@@ -156,17 +156,17 @@ console.log('Shape Color:', shapeColor);
 console.log('Border:', border);
 console.log('Border Color:', borderColor);
 
-  // Create the SVG content
+  // Creation of SVG content
 let shapeElement;
 
-     if (shape === 'circle') {
+     if (shape === 'circle') {   // 70 = Radius factor  
           const circle = new Circle(70, shapeColor, border, borderColor);
           shapeElement = circle.getSvgElement();
      } else if (shape === 'triangle') {
-                                   //    T x-y,   BL x-y    BR x-y
+                             // Points = Top x-y, BotL x-y, BotR x-y
           const triangle = new Triangle('125, 40, 55, 175, 195, 175', shapeColor, border, borderColor);
           shapeElement = triangle.getSvgElement();
-     } else if (shape === 'square') {
+     } else if (shape === 'square') { // 150 = x-y factors
           const square = new Square(150, 150, shapeColor, border, borderColor);
           shapeElement = square.getSvgElement();
      } else {
@@ -177,7 +177,7 @@ let shapeElement;
      const svgContent = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="300">${shapeElement}
                     <text x="126" y="157" text-anchor="middle" fill="${textColor}" font-size="40">${text}</text></svg>`;
 
-     // Write the SVG content to a file named "logo.svg"
+     // Writes SVG content to a file named "logo.svg"
      fs.writeFileSync('logo.svg', svgContent);
 
      console.log('Generated logo.svg');
