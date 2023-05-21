@@ -11,7 +11,7 @@
 &nbsp;
 
 ## Description
-The purpose is to build a Node.js command-line application that takes in user input to generate a logo and save it as an SVG file. The application prompts the user to select a color and shape, provide text for the logo, and save the generated SVG to a .svg file.
+The purpose is to build a Node.js command-line application that takes in user input to generate a logo and save it as an SVG file. The application prompts the user to select a color and shape, provide text for the logo, and save the generated SVG to a .svg file. The user also has the option of adding a border to the logo.
 
 &nbsp;
 
@@ -28,7 +28,9 @@ The purpose is to build a Node.js command-line application that takes in user in
 
 ## Installation
 
-Step 1: Install node.js. Step 2: Install npm. Step 3: Install the modules fs, inquirer, util and jest. Go to your terminal and type in npm install + module name. You are now ready to use the application.
+1. Install node.js.
+2. Install npm.
+3. Install the modules fs, inquirer, util and jest. Go to the terminal and type in npm install + module name. You are now ready to use the application.
 
 * [Node.js Installation](https://nodejs.org/en)
 
@@ -56,11 +58,10 @@ Step 1: Install node.js. Step 2: Install npm. Step 3: Install the modules fs, in
 _A brief overview of the project build_
 &nbsp;
 
-## Media
 
 ![Media](./library/images/SVGBrief.gif)
 
-* Visit [Full Media](https://drive.google.com/file/d/1RP5O_m4o5pA8fouVVtnfsFCCwfmUrG7Y/view) to see more details
+* Visit [Full Media](https://drive.google.com/file/d/10J25oGzqWXDTcjkg8xgADKCAaRjAKWo0/view?usp=share_link) to see more details
 
 &nbsp;
 
