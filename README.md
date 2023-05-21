@@ -28,9 +28,15 @@ The purpose is to build a Node.js command-line application that takes in user in
 
 ## Installation
 
-1. Install node.js.
-2. Install npm.
-3. Install the modules fs, inquirer, util and jest. Go to the terminal and type in npm install + module name. You are now ready to use the application.
+1. Install node.js, npm and the modules fs, inquirer, util and jest.
+2. Go to the terminal and type in npm install + module name.
+3. Build your index.js file.
+     - Create classes for Shape, Circle, Square, Triangle and Text. These should extend from the Shape class
+     - Create an async function that contains inqirer prompt questions.
+          - These can include text (up to 3 characters), text color, shape type and shape color.
+          - You can add a border and border color options to the inquirer class if you would like.
+     - remember to let the SVG content depend on the inquirer questions.
+4. You are now ready to use the application.
 
 * [Node.js Installation](https://nodejs.org/en)
 
@@ -46,6 +52,11 @@ The purpose is to build a Node.js command-line application that takes in user in
 
 ## Usage
 
+1. Open up your index.js file in a terminal.
+2. Type in node index.js.
+3. You will be prompted with the questions you setup.
+4. Once you are finished answering the questions, a logo.svg file will be produced.
+5. Right click on the file and select "Open with Live Server" to see the produced logo.
 
 
 &nbsp;
